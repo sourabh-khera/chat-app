@@ -1,0 +1,10 @@
+.chats{
+    height: 100%;
+    width: 234px;
+    border: 1px solid lightgray;
+}
+.chatContainer{
+    height:400px;
+    margin-left: 30px;
+    margin-top: 30px;
+}

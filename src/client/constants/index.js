@@ -1,0 +1,5 @@
+/**
+ * Created by sourabh on 12/7/17.
+ */
+export const CREATE_MEASSAGE_SUCCESS='CREATE_MESSAGE_SUCCESS';
+export const CREATE_MEASSAGE_FAILURE='CREATE_MESSAGE_FAILURE';
