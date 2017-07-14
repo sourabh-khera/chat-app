@@ -8,7 +8,7 @@ import {createMessage} from "../actions"
 import {connect} from "react-redux"
 
 
-class Chat extends React.Component {
+export default class Chat extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -22,17 +22,26 @@ class Chat extends React.Component {
     };
 
     onSubmit = (message) => {
-//         this.props.createMessage(message);
         socket.emit('new-message', message);
         this.setState({message: ''})
     };
 
     componentDidMount() {
-        socket.on('receive-message', (message) => {
-            const messages = this.state.messages;
+        const messages = this.state.messages;
+
+        socket.on('received-message', (message) => {
             messages.push(message);
             this.setState({messages})
         })
+    }
+    componentWillMount(){
+        const messages = this.state.messages;
+        socket.on('load-old-messages', (message) => {
+            for (let i = 0; i < message.length; i++) {
+                messages.push(message[i].chatData);
+            }
+            this.setState({messages})
+        });
     }
 
     render() {
@@ -58,11 +67,11 @@ class Chat extends React.Component {
         )
     }
 }
-
-const mapDispatchToProps = (dispatch) => ({
-    createMessage: (message) => {
-        dispatch(createMessage(message))
-    }
-});
-
-export default connect(null, mapDispatchToProps)(Chat)
+//
+// const mapDispatchToProps = (dispatch) => ({
+//     createMessage: (message) => {
+//         dispatch(createMessage(message))
+//     }
+// });
+//
+// export default connect(null, mapDispatchToProps)(Chat)

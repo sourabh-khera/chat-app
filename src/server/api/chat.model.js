@@ -6,5 +6,6 @@ const ChatSchema = new Mongoose.Schema({
      chatData:{
          type:String,
      },
-});
+},{versionKey:false,timestamps:true});
 
+module.exports=Mongoose.model('chat',ChatSchema);
